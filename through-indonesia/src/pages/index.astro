@@ -4,6 +4,8 @@ import MainLayout from "../layout/MainLayout.astro";
 import Container from "../components/ui/Container.astro";
 
 import Button from "../components/ui/Button.astro";
+
+import heroImage from "../assets/general/hero.jpeg";
 ---
 
 <MainLayout title="Through Indonesia">
@@ -14,7 +16,7 @@ import Button from "../components/ui/Button.astro";
   bg-cover
   bg-center
   bg-no-repeat"
-    style="background-image: linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%), url('/public/hero.jpeg')"
+    style={`background-image: linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%), url(${heroImage.src})`}
   >
     <Container>
       <div class="max-w-4xl">
