@@ -1,0 +1,24 @@
+---
+const { workshop } = Astro.props;
+---
+
+<a
+  href={`/workshops/${workshop.id}`}
+  class="group block overflow-hidden backdrop-sepia rounded-md"
+>
+  <img
+    src={workshop.data.thumbnail}
+    alt={workshop.data.title}
+    class="aspect-video w-full object-cover"
+  />
+
+  <div class="p-4">
+    <h2>{workshop.data.title}</h2>
+
+    <p>{workshop.data.description}</p>
+
+    <div class="mt-2 text-sm">
+      {workshop.data.date}
+    </div>
+  </div>
+</a>

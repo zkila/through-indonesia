@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from "astro:content";
+
+import MainLayout from "../../layout/MainLayout.astro";
+
+export async function getStaticPaths() {
+  const workshops = await getCollection("workshops");
+
+  return workshops.map((workshop) => ({
+    params: {
+      slug: workshop.id,
+    },
+    props: {
+      workshop,
+    },
+  }));
+}
+
+const { workshop } = Astro.props;
+
+const { Content } = await render(workshop);
+---
+
+<MainLayout>
+  <div class="p-4 flex flex-col items-center justify-center">
+    <h1 class="font-bold text-4xl mb-10">{workshop.data.title}</h1>
+
+    <img
+      src={workshop.data.hires}
+      alt={workshop.data.title}
+      class="aspect-video w-4xl object-cover"
+    />
+
+    <div class="p-4">
+      <p>{workshop.data.description}</p>
+    </div>
+  </div>
+
+  <div>
+    <strong>Date:</strong>
+    {workshop.data.date}
+  </div>
+
+  <div>
+    <strong>Location:</strong>
+    {workshop.data.location}
+  </div>
+
+  <div>
+    <strong>Price:</strong> ${workshop.data.price}
+  </div>
+
+  <div>
+    <strong>Seats:</strong>
+    {workshop.data.seats}
+  </div>
+
+  {
+    workshop.data.registrationLink && (
+      <a href={workshop.data.registrationLink} target="_blank">
+        Register Now
+      </a>
+    )
+  }
+
+  <hr />
+  <Content />
+</MainLayout>

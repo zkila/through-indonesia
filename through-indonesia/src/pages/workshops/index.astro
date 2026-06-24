@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import WorkshopCard from "../../components/WorkshopCard.astro";
+import MainLayout from "../../layout/MainLayout.astro";
+
+const workshops = await getCollection("workshops");
+
+workshops.sort(
+  (a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
+);
+
+console.log("WORKSHOPS:", workshops);
+---
+
+<MainLayout
+  title="Workshops - Through Indonesia"
+  description="Upcoming workshops in Indonesia"
+>
+  <div class="p-4 flex flex-col items-center justify-center">
+    <h1 class="text-3xl font-bold mb-4 text-accent">Workshops</h1>
+  </div>
+
+  <div class="p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {workshops.map((workshop) => <WorkshopCard workshop={workshop} />)}
+    </div>
+  </div>
+</MainLayout>
