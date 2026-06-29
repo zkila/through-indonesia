@@ -13,6 +13,7 @@ included:
   - test2
 notIncluded:
   - test1
+instructor: "Eko Sumartopo"
 ---
 
 Hello

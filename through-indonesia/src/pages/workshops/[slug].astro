@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 import MainLayout from "../../layout/MainLayout.astro";
 import Container from "../../components/ui/Container.astro";
 import Button from "../../components/ui/Button.astro";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   const workshops = await getCollection("workshops");
@@ -28,7 +29,7 @@ const { Content } = await render(workshop);
     <div class="p-4 flex flex-col items-center justify-center">
       <h1 class="font-bold text-4xl mb-10">{workshop.data.title}</h1>
 
-      <img
+      <Image
         src={workshop.data.hires}
         alt={workshop.data.title}
         class="aspect-video w-4xl object-cover"

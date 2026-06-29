@@ -1,13 +1,13 @@
 ---
 title: "Street Photography Essentials"
 description: "Learn how to capture compelling moments in urban environments."
-date: "2026-08-15"
+date: "August 15-18, 2026"
 location: "Singapore"
 price: 199
 seats: 12
 featured: true
-thumbnail: "/src/assets/portfolio/japan.png"
-hires: "/src/assets/portfolio/pakistanpage/PANO0001-Pano-9-45-1030x824.jpg"
+thumbnail: "../../assets/portfolio/japan.png"
+hires: "../../assets/portfolio/pakistanpage/PANO0001-Pano-9-45-1030x824.jpg"
 registrationLink: "https://forms.google.com/example"
 included:
   - Roundtrip flight from Punta Arenas
@@ -20,6 +20,7 @@ notIncluded:
   - Flights to Punta Arenas
   - Travel insurance
   - Personal expenses
+instructor: "Eko Sumartopo"
 ---
 
 # Itinerary
@@ -33,8 +34,6 @@ Arrive in Punta Arenas and take the time to unwind after your long journey. Enjo
 Departure from Punta Arenas. Expedition starts from the Bellinsgausen polar station located on the King George island. Please be aware that the departure time for Antarctica can fluctuate due to various factors such as weather and runway conditions.
 
 ## Day 3 - January 18, 2027
-
-|
 
 Our itinerary serves as a flexible guide, with stops and timing adjusted based on weather conditions. Today, we set out to explore Yankee Harbour and Halfmoon Island.
 
