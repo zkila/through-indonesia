@@ -1,34 +1,22 @@
 ---
-import { getCollection, render } from "astro:content";
-
+import { getEntry, render } from "astro:content";
 import MainLayout from "../../layout/MainLayout.astro";
 import Container from "../../components/ui/Container.astro";
 import WorkshopForm from "../../components/WorkshopForm.astro";
 import { Image } from "astro:assets";
 
-export async function getStaticPaths() {
-  const workshops = await getCollection("workshops");
+const { slug } = Astro.params;
 
-  console.log(workshops);
-
-  return workshops.map((workshop) => ({
-    params: {
-      slug: workshop.id,
-    },
-    props: {
-      workshop,
-    },
-  }));
+if (!slug) {
+  throw new Error("Missing workshop slug");
 }
 
-const { workshop } = Astro.props;
-
-console.log("Astro.params:", Astro.params);
-console.log("Astro.props:", Astro.props);
-console.log("Workshop:", workshop);
+const workshop = await getEntry("workshops", slug);
 
 if (!workshop) {
-  throw new Error("Workshop is undefined");
+  return new Response("Workshop not found", {
+    status: 404,
+  });
 }
 
 const { Content } = await render(workshop);
@@ -128,10 +116,10 @@ const { Content } = await render(workshop);
         )
       } -->
 
-      <!-- <WorkshopForm
+      <WorkshopForm
         workshopSlug={workshop.id}
         workshopTitle={workshop.data.title}
-      /> -->
+      />
     </div>
   </Container>
 </MainLayout>
