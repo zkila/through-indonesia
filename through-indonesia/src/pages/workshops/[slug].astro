@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 
 import MainLayout from "../../layout/MainLayout.astro";
 import Container from "../../components/ui/Container.astro";
-import Button from "../../components/ui/Button.astro";
+import WorkshopForm from "../../components/WorkshopForm.astro";
 import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
@@ -106,7 +106,7 @@ const { Content } = await render(workshop);
     <div class="workshop-content"><Content /></div>
     <hr />
     <div class="py-8 items-center flex-col mx-auto flex gap-4 justify-center">
-      {
+      <!-- {
         workshop.data.registrationLink && (
           <Button
             href={workshop.data.registrationLink}
@@ -116,7 +116,12 @@ const { Content } = await render(workshop);
             Register Now
           </Button>
         )
-      }
+      } -->
+
+      <WorkshopForm
+        workshopSlug={workshop.id}
+        workshopTitle={workshop.data.title}
+      />
     </div>
   </Container>
 </MainLayout>
