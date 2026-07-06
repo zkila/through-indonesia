@@ -9,6 +9,8 @@ import { Image } from "astro:assets";
 export async function getStaticPaths() {
   const workshops = await getCollection("workshops");
 
+  console.log(workshops);
+
   return workshops.map((workshop) => ({
     params: {
       slug: workshop.id,
@@ -20,6 +22,14 @@ export async function getStaticPaths() {
 }
 
 const { workshop } = Astro.props;
+
+console.log("Astro.params:", Astro.params);
+console.log("Astro.props:", Astro.props);
+console.log("Workshop:", workshop);
+
+if (!workshop) {
+  throw new Error("Workshop is undefined");
+}
 
 const { Content } = await render(workshop);
 ---
@@ -118,10 +128,10 @@ const { Content } = await render(workshop);
         )
       } -->
 
-      <WorkshopForm
+      <!-- <WorkshopForm
         workshopSlug={workshop.id}
         workshopTitle={workshop.data.title}
-      />
+      /> -->
     </div>
   </Container>
 </MainLayout>
