@@ -3,9 +3,8 @@ import MainLayout from "../layout/MainLayout.astro";
 
 import Container from "../components/ui/Container.astro";
 
-import Button from "../components/ui/Button.astro";
-
-import profileImage from "../assets/general/profile.png";
+const profileImage =
+  "https://images.throughindonesia.com/assets/general/profile.png";
 ---
 
 <MainLayout title="Eko's Page - Through Indonesia">
@@ -64,7 +63,7 @@ import profileImage from "../assets/general/profile.png";
       </div>
       <div class="w-full ml-auto">
         <img
-          src={profileImage.src}
+          src={profileImage}
           alt="Eko Sumartopo"
           class="w-full h-full object-cover"
         />

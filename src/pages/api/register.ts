@@ -135,7 +135,7 @@ export async function POST({ request }: { request: Request }) {
     try {
       if (statusRegistrant === "Confirmed") {
       await resend.emails.send({
-        from: "Photography Workshops <workshops@send.throughindonesia.com>",
+        from: "Through Indonesia - Registration <workshops@send.throughindonesia.com>",
         to: email,
         subject: "Workshop Registration - Confirmed",
         html: registrationEmail({
@@ -146,8 +146,8 @@ export async function POST({ request }: { request: Request }) {
         }),
       });
       await resend.emails.send({
-        from: "Photography Workshops <workshops@send.throughindonesia.com>",
-        to: "arkana2003@gmail.com",
+        from: "Through Indonesia - Admin Notice <workshops@send.throughindonesia.com>",
+        to: "eko.sumartopo@gmail.com",
         subject: "New Registration",
         html: adminRegistrationEmail({
           fullName,
@@ -160,7 +160,7 @@ export async function POST({ request }: { request: Request }) {
       });
     } else if (statusRegistrant === "Waitlist") {
       await resend.emails.send({
-        from: "Photography Workshops <workshops@send.throughindonesia.com>",
+        from: "Through Indonesia - Registration <workshops@send.throughindonesia.com>",
         to: email,
         subject: "Workshop Registration - Waitlist",
         html: registrationEmailWaitlist({
@@ -171,8 +171,8 @@ export async function POST({ request }: { request: Request }) {
         }),
       });
       await resend.emails.send({
-        from: "Photography Workshops <workshops@send.throughindonesia.com>",
-        to: "arkana2003@gmail.com",
+        from: "Through Indonesia - Admin Notice <workshops@send.throughindonesia.com>",
+        to: "eko.sumartopo@gmail.com",
         subject: "New Registration",
         html: adminRegistrationEmail({
           fullName,
