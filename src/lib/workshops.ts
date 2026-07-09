@@ -3,7 +3,7 @@ import { supabaseServer } from "./supabase-server";
 export async function getWorkshop(slug: string) {
   const { data, error } = await supabaseServer
   .from("workshops")
-  .select("title, max_seats, registration_open, collab, collab_link")
+  .select("title, max_seats, registration_open, collab, collab_link, date_start, date_end, location")
   .eq("slug", slug)
   .single();
 
@@ -17,7 +17,7 @@ export async function getWorkshop(slug: string) {
 export async function getAllWorkshops() {
   const { data, error } = await supabaseServer
     .from("workshops")
-    .select("slug, title, max_seats, registration_open, collab, collab_link");
+    .select("slug, title, max_seats, registration_open, collab, collab_link, date_start, date_end, location");
 
     return data;
 }

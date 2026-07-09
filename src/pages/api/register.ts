@@ -4,17 +4,30 @@ import { supabaseServer } from "../../lib/supabase-server";
 import { resend } from "../../lib/resend";
 import { getWorkshop } from "../../lib/workshops";
 import { countConfirmedRegistrations } from "../../lib/registrations";
+import { registrationEmail, registrationEmailWaitlist } from "../../emails/registration";
+import { adminRegistrationEmail } from "../../emails/admin";
 
 export async function POST({ request }: { request: Request }) {
+  
   try {
     const body = await request.json();
 
     const fullName = body.fullName?.trim();
     const email = body.email?.trim();
+    const phone = body.phone?.trim();
+    const country = body.country?.trim();
     const token = body["cf-turnstile-response"];
 
     const workshop = await getWorkshop(body.workshopSlug);
 
+    const workshopTitle = workshop.title;
+    const workshopLocation = workshop.location;
+    const workshopDateStart = workshop.date_start;
+    const workshopDateEnd = workshop.date_end;
+    const workshopDate = formatWorkshopDates(
+      workshopDateStart,
+      workshopDateEnd
+    );
     const seatLimit = workshop.max_seats;
 
     let statusRegistrant: string;
@@ -110,47 +123,7 @@ export async function POST({ request }: { request: Request }) {
         status: statusRegistrant
       });
 
-    // if (statusRegistrant === "Confirmed") {
-    //   await resend.emails.send({
-    //     from: "Photography Workshops <onboarding@resend.dev>",
-    //     // to: email,
-    //     to:"arkana2003@gmail.com",
-    //     subject: "Workshop Registration- Confirmed",
-    //     html: `
-    //       <h2>Registration received!</h2>
-
-    //       <p>Hi ${fullName},</p>
-
-    //       <p>Thank you for registering for the ${body.workshopTitle} workshop.</p>
-
-    //       <p>This is supposed to go to ${email}</p>
-
-    //       <p>We'll contact you shortly.</p>
-    //     `,
-    //   });
-    // } else if (statusRegistrant === "Waitlist") {
-    //   await resend.emails.send({
-    //     from: "Photography Workshops <onboarding@resend.dev>",
-    //     // to: email,
-    //     to:"arkana2003@gmail.com",
-    //     subject: "Workshop Registration - Waitlist",
-    //     html: `
-    //       <h2>You've been added to the waitlist!</h2>
-
-    //       <p>Hi ${fullName},</p>
-
-    //       <p>Thank you for registering for the ${body.workshopTitle} workshop.</p>
-
-    //       <p>This is supposed to go to ${email}</p>
-
-    //       <p>We'll contact you as soon as a spot opens up.</p>
-    //     `,
-    //   });      
-    // }
-
-    
-
-    if (error) {
+      if (error) {
       console.error("Supabase error:", error);
 
       return Response.json(
@@ -159,7 +132,61 @@ export async function POST({ request }: { request: Request }) {
       );
     }
 
-    return Response.json({ success: true });
+    try {
+      if (statusRegistrant === "Confirmed") {
+      await resend.emails.send({
+        from: "Photography Workshops <workshops@send.throughindonesia.com>",
+        to: email,
+        subject: "Workshop Registration - Confirmed",
+        html: registrationEmail({
+          fullName,
+          workshopTitle,
+          workshopDate,
+          workshopLocation,
+        }),
+      });
+      await resend.emails.send({
+        from: "Photography Workshops <workshops@send.throughindonesia.com>",
+        to: "arkana2003@gmail.com",
+        subject: "New Registration",
+        html: adminRegistrationEmail({
+          fullName,
+          workshopTitle,
+          phone,
+          country,
+          email,
+          status:statusRegistrant
+        }),
+      });
+    } else if (statusRegistrant === "Waitlist") {
+      await resend.emails.send({
+        from: "Photography Workshops <workshops@send.throughindonesia.com>",
+        to: email,
+        subject: "Workshop Registration - Waitlist",
+        html: registrationEmailWaitlist({
+          fullName,
+          workshopTitle,
+          workshopDate,
+          workshopLocation,
+        }),
+      });
+      await resend.emails.send({
+        from: "Photography Workshops <workshops@send.throughindonesia.com>",
+        to: "arkana2003@gmail.com",
+        subject: "New Registration",
+        html: adminRegistrationEmail({
+          fullName,
+          workshopTitle,
+          phone,
+          country,
+          email,
+          status:statusRegistrant
+        }),
+      });      
+    }
+    } catch (err) {
+      console.error("Failed to send email:", err);
+    }
 
   } catch (err) {
     console.error("Registration endpoint error:", err);
@@ -169,4 +196,31 @@ export async function POST({ request }: { request: Request }) {
       { status: 500 }
     );
   }
+
+  return Response.json({ success: true });
+}
+
+function formatWorkshopDates(start: string, end: string) {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  const sameMonth =
+    startDate.getFullYear() === endDate.getFullYear() &&
+    startDate.getMonth() === endDate.getMonth();
+
+  if (sameMonth) {
+    return `${startDate.toLocaleDateString("en-US", {
+      month: "long",
+    })} ${startDate.getDate()}–${endDate.getDate()}, ${startDate.getFullYear()}`;
+  }
+
+  return `${startDate.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })} – ${endDate.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })}`;
 }
