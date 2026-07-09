@@ -57,7 +57,20 @@ const portfolios: Record<string, Omit<Portfolio, "slug">> = {
       "orangutan1.jpg",
       "orangutan2.jpg",
       "orangutan3.jpg",
-      "buaya1.jpg",])}
+      "buaya1.jpg",])
+    },
+    buton: {
+      title: "Buton",
+      images: createGalleryImages("buton",[
+        "buton6.jpg",
+        "buton1.jpg",
+        "buton2.jpg",
+        "buton3.jpg",
+        "buton4.jpg",
+        "buton5.jpg",
+        "buton7.jpg"
+      ])
+    }
 
 };
 
