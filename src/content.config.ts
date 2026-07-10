@@ -25,6 +25,21 @@ const workshops = defineCollection({
 })
 });
 
+const testimonials = defineCollection({
+  loader: glob({base:'./src/content/testimonials',pattern: '**/*.{md,mdx}'}),
+  schema: () => z.object({
+    name: z.string(),
+    country: z.string(),
+    workshop: z.string(),
+    featured: z.boolean().default(false),
+    image: z.string(),
+    instagram: z.string(),
+    testimony: z.string(),
+  })
+
+});
+
 export const collections = {
   workshops,
+  testimonials
 };
