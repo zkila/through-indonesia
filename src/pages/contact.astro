@@ -2,9 +2,11 @@
 import MainLayout from "../layout/MainLayout.astro";
 import Container from "../components/ui/Container.astro";
 import Button from "../components/ui/Button.astro";
+
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Contact" }];
 ---
 
-<MainLayout title="Contact">
+<MainLayout title="Contact - Through Indonesia" breadcrumbs={breadcrumbs}>
   <Container>
     <h1 class="text-3xl font-bold mb-6">Contact</h1>
     <form

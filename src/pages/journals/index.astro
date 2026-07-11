@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../../layout/MainLayout.astro";
+import Container from "../../components/ui/Container.astro";
+
+const journals = await getCollection("journals");
+
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Journals" }];
+---
+
+<MainLayout title="Journals - Through Indonesia" breadcrumbs={breadcrumbs}>
+  <Container
+    ><h1 class="text-6xl md:text-9xl">JOURNALS</h1>
+    <hr class="mt-10 mb-6 border-secondary" />
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch"
+    >
+      {
+        journals.map((journals) => (
+          <a
+            href={`/journals/${journals.data.slug}`}
+            class="group flex flex-col h-full overflow-hidden bg-linear-120 from-secondary to-background rounded-md"
+          >
+            <div class="justify-between flex items-center">
+              <h1 class="p-6 italic text-2xl">{journals.data.title}</h1>
+              <div class="p-6 text-secondary">
+                written by {journals.data.author}
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </Container>
+</MainLayout>

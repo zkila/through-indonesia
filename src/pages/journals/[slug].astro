@@ -1,0 +1,33 @@
+---
+import { getEntry, render } from "astro:content";
+import MainLayout from "../../layout/MainLayout.astro";
+import Container from "../../components/ui/Container.astro";
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  throw new Error("Missing journals slug");
+}
+
+const journals = await getEntry("journals", slug);
+
+if (!journals) {
+  return new Response("Journal not found", {
+    status: 404,
+  });
+}
+
+const { Content } = await render(journals);
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Journals", href: "/journals" },
+  { label: journals.data.title },
+];
+---
+
+<MainLayout title={journals.data.title} breadcrumbs={breadcrumbs}>
+  <Container>
+    <div class="workshop-content"><Content /></div>
+  </Container>
+</MainLayout>

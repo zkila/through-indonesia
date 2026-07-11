@@ -5,10 +5,12 @@ import PortfolioCard from "../../components/PortfolioCard.astro";
 import MainLayout from "../../layout/MainLayout.astro";
 
 const portfolios = getAllPortfolios();
+
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Portfolio" }];
 ---
 
-<MainLayout title="Portfolio - Through Indonesia">
-  <div class="grid grid-cols-3 gap-1">
+<MainLayout title="Portfolio - Through Indonesia" breadcrumbs={breadcrumbs}>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
     {
       portfolios.map((item) => (
         <a href={`/portfolio/${item.slug}`}>

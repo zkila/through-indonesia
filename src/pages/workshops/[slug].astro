@@ -4,6 +4,7 @@ import MainLayout from "../../layout/MainLayout.astro";
 import Container from "../../components/ui/Container.astro";
 import WorkshopForm from "../../components/WorkshopForm.astro";
 import Button from "../../components/ui/Button.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 import { getWorkshop } from "../../lib/workshops";
 
@@ -34,6 +35,12 @@ const confirmedRegistrations = await countConfirmedRegistrations(
 const waitlistRegistrations = await countWaitlist(workshop.data.slug);
 
 const { Content } = await render(workshop);
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Workshops", href: "/workshops" },
+  { label: workshop.data.title },
+];
 ---
 
 <head>
@@ -46,8 +53,16 @@ const { Content } = await render(workshop);
     defer></script>
 </head>
 
-<MainLayout title={workshop.data.title}>
+<MainLayout title={workshop.data.title} breadcrumbs={breadcrumbs}>
   <Container>
+    <div class="fixed bottom-8 right-4">
+      <a
+        href="#workshop-form"
+        class="bg-accent/50 backdrop-blur text-white text-xl font-bold py-3 px-6 rounded-full shadow-lg inline-block"
+      >
+        Register!
+      </a>
+    </div>
     <div class="p-4 flex flex-col items-center justify-center">
       <h1 class="font-bold text-4xl mb-10">{workshop.data.title}</h1>
 
@@ -154,37 +169,39 @@ const { Content } = await render(workshop);
       <div class="font-bold text-2xl">Waitlist: {waitlistRegistrations}</div>
     </div>
     <hr class="border-gray-500 mt-8" />
-    <div class="py-8 flex flex-col items-center mx-auto gap-4 justify-center">
-      {
-        workshopDetails.collab ? (
-          <div class="rounded-lg border border-zinc-700 bg-zinc-900 p-6 text-center">
-            <h3 class="text-lg font-semibold">Registration via Partner</h3>
-            <p class="mt-2 text-zinc-400 mb-2">
-              This workshop is organized in collaboration with another
-              organization. Please register through the partner's registration
-              page.
-            </p>
-            {workshopDetails.collab_link && (
-              <Button href={workshopDetails.collab_link}>
-                Go to Partner's Site
-              </Button>
-            )}
-          </div>
-        ) : workshopDetails.registration_open ? (
-          <WorkshopForm
-            workshopSlug={workshop.id}
-            workshopTitle={workshop.data.title}
-            availableSeats={workshop.data.seats - confirmedRegistrations}
-          />
-        ) : (
-          <div class="rounded-lg border border-zinc-700 bg-zinc-900 p-6 text-center">
-            <h3 class="text-lg font-semibold">Registration Closed</h3>
-            <p class="mt-2 text-zinc-400">
-              Registration for this workshop is not currently open.
-            </p>
-          </div>
-        )
-      }
-    </div>
+    <section id="workshop-form">
+      <div class="py-8 flex flex-col items-center mx-auto gap-4 justify-center">
+        {
+          workshopDetails.collab ? (
+            <div class="rounded-lg border border-zinc-700 bg-zinc-900 p-6 text-center">
+              <h3 class="text-lg font-semibold">Registration via Partner</h3>
+              <p class="mt-2 text-zinc-400 mb-2">
+                This workshop is organized in collaboration with another
+                organization. Please register through the partner's registration
+                page.
+              </p>
+              {workshopDetails.collab_link && (
+                <Button href={workshopDetails.collab_link}>
+                  Go to Partner's Site
+                </Button>
+              )}
+            </div>
+          ) : workshopDetails.registration_open ? (
+            <WorkshopForm
+              workshopSlug={workshop.id}
+              workshopTitle={workshop.data.title}
+              availableSeats={workshop.data.seats - confirmedRegistrations}
+            />
+          ) : (
+            <div class="rounded-lg border border-zinc-700 bg-zinc-900 p-6 text-center">
+              <h3 class="text-lg font-semibold">Registration Closed</h3>
+              <p class="mt-2 text-zinc-400">
+                Registration for this workshop is not currently open.
+              </p>
+            </div>
+          )
+        }
+      </div>
+    </section>
   </Container>
 </MainLayout>

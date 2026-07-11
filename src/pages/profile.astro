@@ -5,9 +5,11 @@ import Container from "../components/ui/Container.astro";
 
 const profileImage =
   "https://images.throughindonesia.com/assets/general/profile.png";
+
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: "About" }];
 ---
 
-<MainLayout title="Eko's Page - Through Indonesia">
+<MainLayout title="Eko's Page - Through Indonesia" breadcrumbs={breadcrumbs}>
   <Container>
     <div
       class="flex

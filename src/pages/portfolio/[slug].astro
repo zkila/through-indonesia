@@ -25,8 +25,17 @@ const portfolio = getPortfolio(slug);
 if (!portfolio) {
   return Astro.redirect("/404");
 }
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: portfolio.title },
+];
 ---
 
-<MainLayout title={`${portfolio.title} - Through Indonesia`}>
+<MainLayout
+  title={`${portfolio.title} - Through Indonesia`}
+  breadcrumbs={breadcrumbs}
+>
   <Gallery images={portfolio.images} client:visible />
 </MainLayout>

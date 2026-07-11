@@ -1,6 +1,6 @@
 const R2_BASE = import.meta.env.PUBLIC_R2_URL;
 
-console.log(import.meta.env.PUBLIC_R2_URL);
+// console.log(import.meta.env.PUBLIC_R2_URL);
 
 export interface GalleryImage {
   url: string;
@@ -69,6 +69,27 @@ const portfolios: Record<string, Omit<Portfolio, "slug">> = {
         "buton4.jpg",
         "buton5.jpg",
         "buton7.jpg"
+      ])
+    },
+    lombok:{
+      title:"Lombok",
+      images:createGalleryImages("lombok",[
+        "lombok1.jpg",
+        "lombok2.jpg",
+        "lombok3.jpg",
+        "lombok4.jpg",
+        "lombok5.jpg",
+        "lombok6.jpg",
+        "lombok7.jpg",
+      ])
+    },
+    sumba:{
+      title: "Sumba",
+      images:createGalleryImages("sumba",[
+        "sumba1.jpg",
+        "sumba2.jpg",
+        "sumba3.jpg",
+        "sumba4.jpg",
       ])
     }
 

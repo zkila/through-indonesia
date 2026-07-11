@@ -10,9 +10,11 @@ const workshopDetails = await getAllWorkshops();
 workshops.sort(
   (a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
 );
+
+const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Workshops" }];
 ---
 
-<MainLayout title="Workshops - Through Indonesia">
+<MainLayout title="Workshops - Through Indonesia" breadcrumbs={breadcrumbs}>
   <div class="p-4 flex flex-col items-center justify-center">
     <h1 class="text-3xl font-bold mb-4 text-accent">Workshops</h1>
   </div>

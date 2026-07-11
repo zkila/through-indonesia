@@ -48,7 +48,7 @@ export default function Gallery({ images }: GalleryProps) {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-1">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {images.map((img, index) => {
           const optimized = responsiveImage(img.url, [400, 600, 900]);
 

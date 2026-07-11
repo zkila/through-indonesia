@@ -36,10 +36,23 @@ const testimonials = defineCollection({
     instagram: z.string(),
     testimony: z.string(),
   })
-
 });
+
+const journals = defineCollection({
+  loader: glob({base:'./src/content/journals',pattern:'**/*.{md,mdx}'}),
+  schema: () => z.object({
+    slug: z.string(),
+    title: z.string(),
+    subtitle: z.string(),
+    dateCreated: z.string(),
+    category: z.string(),
+    author: z.string(),
+    excerpt: z.string(),
+  })
+})
 
 export const collections = {
   workshops,
-  testimonials
+  testimonials,
+  journals
 };
