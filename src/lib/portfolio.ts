@@ -1,10 +1,22 @@
 const R2_BASE = import.meta.env.PUBLIC_R2_URL;
 
+import manifestJson from "../data/portfolio-manifest.json";
+
+const manifest = manifestJson as Record<
+  string,
+  {
+    width: number;
+    height: number;
+  }
+>;
+
 // console.log(import.meta.env.PUBLIC_R2_URL);
 
 export interface GalleryImage {
   url: string;
   filename: string;
+  width: number;
+  height: number;
 }
 
 
@@ -18,10 +30,16 @@ export function createGalleryImages(
   folder: string,
   files: string[]
 ): GalleryImage[] {
-  return files.map((file) => ({
-    url: `${R2_BASE}/assets/portfolio/${folder}/${file}`,
-    filename: file.replace(/\.[^/.]+$/, ""),
-  }));
+  return files.map((file) => {
+    const dimensions = manifest[`${folder}/${file}`];
+
+    return {
+      url: `${R2_BASE}/assets/portfolio/${folder}/${file}`,
+      filename: file.replace(/\.[^/.]+$/, ""),
+      width: dimensions.width,
+      height: dimensions.height,
+    };
+  });
 }
 
 const portfolios: Record<string, Omit<Portfolio, "slug">> = {
