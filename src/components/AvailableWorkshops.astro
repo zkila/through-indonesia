@@ -1,0 +1,17 @@
+---
+import { getCollection } from "astro:content";
+
+const workshops = await getCollection("workshops");
+---
+
+<ul
+  class="py-8 md:flex md:items-center list-none md:justify-between md:flex-col-3"
+>
+  {
+    workshops.map((workshop) => (
+      <li class="list-none px-4 rounded-lg py-4 hover:bg-accent hover:text-background text-2xl italic">
+        <a href={`/workshops/${workshop.data.slug}`}>{workshop.data.title}</a>
+      </li>
+    ))
+  }
+</ul>

@@ -1,3 +1,5 @@
+// npx tsx scripts/generate-manifest.ts
+
 import fs from "node:fs";
 import path from "node:path";
 import { imageSizeFromFile } from 'image-size/fromFile'

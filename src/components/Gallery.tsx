@@ -13,9 +13,10 @@ interface GalleryImage {
 
 interface GalleryProps {
   images: GalleryImage[];
+  masonry?: boolean;
 }
 
-export default function Gallery({ images }: GalleryProps) {
+export default function Gallery({ images, masonry = false }: GalleryProps) {
   const galleryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,7 +34,14 @@ export default function Gallery({ images }: GalleryProps) {
   }, []);
 
   return (
-    <div ref={galleryRef} className="grid grid-cols-2 md:grid-cols-3 gap-1">
+    <div
+      ref={galleryRef}
+      className={
+        masonry
+          ? "columns-2 md:columns-3 gap-2"
+          : "grid grid-cols-2 md:grid-cols-3 gap-1"
+      }
+    >
       {images.map((img) => {
         const thumb = responsiveImage(img.url, [400, 600, 900]);
         const large = responsiveImage(img.url, [1600, 2000]);
@@ -44,6 +52,7 @@ export default function Gallery({ images }: GalleryProps) {
             href={large.src}
             data-pswp-width={img.width}
             data-pswp-height={img.height}
+            className={masonry ? "mb-2 block break-inside-avoid" : ""}
           >
             <img
               src={thumb.src}
@@ -51,7 +60,11 @@ export default function Gallery({ images }: GalleryProps) {
               sizes="(max-width:768px) 50vw,33vw"
               alt={img.filename}
               loading="lazy"
-              className="aspect-square w-full object-cover transition-transform"
+              className={
+                masonry
+                  ? "w-full h-auto  transition-transform"
+                  : "aspect-square w-full object-cover transition-transform"
+              }
             />
           </a>
         );

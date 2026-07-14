@@ -28,17 +28,27 @@ export interface Portfolio {
 
 export function createGalleryImages(
   folder: string,
-  files: string[]
+  files: string[],
+  journal = false,
 ): GalleryImage[] {
   return files.map((file) => {
     const dimensions = manifest[`${folder}/${file}`];
 
-    return {
+    if (journal){
+      return {
+      url: `${R2_BASE}/assets/article/${folder}/${file}`,
+      filename: file.replace(/\.[^/.]+$/, ""),
+      width: dimensions.width,
+      height: dimensions.height,
+    };
+    } else {
+      return {
       url: `${R2_BASE}/assets/portfolio/${folder}/${file}`,
       filename: file.replace(/\.[^/.]+$/, ""),
       width: dimensions.width,
       height: dimensions.height,
     };
+    }
   });
 }
 

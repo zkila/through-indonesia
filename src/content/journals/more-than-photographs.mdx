@@ -8,6 +8,9 @@ author: "Eko Sumartopo"
 excerpt: "Through Indonesia was created from a simple belief: extraordinary photographs come from extraordinary experiences."
 featured: true
 ---
+import Gallery from "../../components/Gallery.tsx";
+import {createGalleryImages} from "../../lib/portfolio.ts";
+import AvailableWorkshops from "../../components/AvailableWorkshops.astro";
 
 # More Than Photographs
 
@@ -15,11 +18,49 @@ featured: true
 
 Indonesia is often described through postcards.
 
+<div class="p-8">
+  <Gallery masonry={true}
+    images={createGalleryImages("journal-1", [
+      "journal_1_6.webp",
+      "journal_1_7.webp",],true)}
+    client:visible
+  />
+</div>
+
 Volcanoes rising above the clouds.
 
+<div class="p-8">
+  <Gallery masonry={true}
+    images={createGalleryImages("journal-1", [
+      "journal_1_4.webp",
+      "journal_1_8.webp",],true)}
+    client:visible
+  />
+</div>
 Ancient temples glowing in the first light of dawn.
 
+<div class="p-8">
+  <Gallery masonry={true}
+    images={createGalleryImages("journal-1", [
+      "journal_1_12.webp",
+      "journal_1_13.webp",],true)}
+    client:visible
+  />
+</div>
+
 Orangutans moving silently through the rainforest canopy.
+
+<div class="p-8">
+  <Gallery
+    masonry={true}
+    images={createGalleryImages("journal-1", [
+      "journal_1_1.webp",
+      "journal_1_2.webp",
+      "journal_1_11.webp",
+      "journal_1_9.webp",],true)}
+    client:visible
+  />
+</div>
 
 Traditional ceremonies hidden within mountain villages and island communities.
 
@@ -126,10 +167,6 @@ We believe that the best journeys are measured not only by the photographs we br
 
 ## Explore Our Expeditions
 
-- Bali → Java Photography Expedition
-- Bali → Sumba → Buton Cultural Expedition
-- Indonesia Wildlife & Culture Expedition
-- Private Photography Mentoring
-- Custom Photography Journeys
+<AvailableWorkshops />
 
 We look forward to sharing Indonesia with you.
