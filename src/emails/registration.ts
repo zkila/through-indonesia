@@ -44,6 +44,8 @@ export function registrationEmail({
     <p>
       Looking forward to this adventure with you!
     </p>
+
+    <h2>Please do not reply to this mail!</h2>
   `;
 }
 
@@ -81,5 +83,7 @@ export function registrationEmailWaitlist({
     <p>We'll contact you as soon as a spot opens up.</p>
 
     <p>Thank you for being patient with us!</p>
+
+    <h2>Please do not reply to this mail!</h2>
   `;
 }

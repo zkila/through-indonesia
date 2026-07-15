@@ -35,5 +35,7 @@ export function adminRegistrationEmail({
       <li><strong>Country:</strong> ${country}</li>
       <li><strong>Status:</strong> ${status}</li>
     </ul>
+
+    <h2>Please do not reply to this mail!</h2>
     `
 }

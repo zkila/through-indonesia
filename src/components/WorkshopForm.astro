@@ -61,6 +61,17 @@ const { workshopSlug, workshopTitle, availableSeats } = Astro.props;
 
   <input type="hidden" name="workshopTitle" value={workshopTitle} />
 
+  <input
+    type="text"
+    name="website"
+    autocomplete="off"
+    tabindex="-1"
+    class="hidden"
+    aria-hidden="true"
+  />
+
+  <input type="hidden" name="timestamp" value={Date.now()} />
+
   <label class="flex flex-col text-sm flex-1">
     Additional notes
     <textarea
@@ -161,6 +172,20 @@ const { workshopSlug, workshopTitle, availableSeats } = Astro.props;
       if (!(submitButton instanceof HTMLButtonElement)) {
         console.error("Submit button not found.");
         return;
+      }
+
+      const website = formData.get("website");
+
+      if (website) {
+        return new Response("Spam detected", { status: 400 });
+      }
+
+      const timestamp = Number(formData.get("timestamp"));
+
+      const elapsed = Date.now() - timestamp;
+
+      if (elapsed < 3000) {
+        return new Response("Too fast", { status: 400 });
       }
 
       submitButton.disabled = true;
