@@ -7,6 +7,7 @@ const manifest = manifestJson as Record<
   {
     width: number;
     height: number;
+    caption: string;
   }
 >;
 
@@ -40,6 +41,7 @@ export function createGalleryImages(
       filename: file.replace(/\.[^/.]+$/, ""),
       width: dimensions.width,
       height: dimensions.height,
+      alt: dimensions.caption
     };
     } else {
       return {
@@ -47,6 +49,7 @@ export function createGalleryImages(
       filename: file.replace(/\.[^/.]+$/, ""),
       width: dimensions.width,
       height: dimensions.height,
+      alt: dimensions.caption
     };
     }
   });

@@ -2,7 +2,24 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { imageSizeFromFile } from 'image-size/fromFile'
+import { imageSizeFromFile } from "image-size/fromFile";
+
+const CAPTIONS = [
+  "Golden light over the mountains at sunrise.",
+  "A quiet moment in the heart of the rainforest.",
+  "Traditional life unfolding along the river.",
+  "Layers of mist drifting through the valley.",
+  "Local fishermen returning before dawn.",
+  "Ancient temple surrounded by tropical forest.",
+  "Reflections shimmering across calm waters.",
+  "Daily life captured in natural light.",
+  "An unforgettable landscape shaped by time.",
+  "Wildlife emerging from the dense jungle."
+];
+
+function randomCaption() {
+  return CAPTIONS[Math.floor(Math.random() * CAPTIONS.length)];
+}
 
 async function generateManifest() {
   const ROOT = path.join(process.cwd(), "public/assets/portfolio");
@@ -12,6 +29,7 @@ async function generateManifest() {
     {
       width: number;
       height: number;
+      caption: string;
     }
   > = {};
 
@@ -28,6 +46,7 @@ async function generateManifest() {
       manifest[`${folder}/${file}`] = {
         width: width!,
         height: height!,
+        caption: randomCaption(),
       };
     }
   }

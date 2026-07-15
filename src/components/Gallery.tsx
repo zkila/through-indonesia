@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import PhotoSwipeLightbox from "photoswipe/lightbox";
+import PhotoSwipeDynamicCaption from "photoswipe-dynamic-caption-plugin";
+import "photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css";
 import "photoswipe/style.css";
 
 import { responsiveImage } from "../lib/transformedImage";
@@ -9,6 +11,7 @@ interface GalleryImage {
   filename: string;
   width: number;
   height: number;
+  alt: string;
 }
 
 interface GalleryProps {
@@ -26,6 +29,10 @@ export default function Gallery({ images, masonry = false }: GalleryProps) {
       gallery: galleryRef.current,
       children: "a",
       pswpModule: () => import("photoswipe"),
+    });
+
+    new PhotoSwipeDynamicCaption(lightbox, {
+      type: "auto",
     });
 
     lightbox.init();
@@ -58,7 +65,7 @@ export default function Gallery({ images, masonry = false }: GalleryProps) {
               src={thumb.src}
               srcSet={thumb.srcset}
               sizes="(max-width:768px) 50vw,33vw"
-              alt={img.filename}
+              alt={img.alt}
               loading="lazy"
               className={
                 masonry
