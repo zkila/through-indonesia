@@ -9,7 +9,11 @@ const portfolios = getAllPortfolios();
 const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Portfolio" }];
 ---
 
-<MainLayout title="Portfolio - Through Indonesia" breadcrumbs={breadcrumbs}>
+<MainLayout
+  title="Portfolio - Through Indonesia"
+  breadcrumbs={breadcrumbs}
+  compactFooter
+>
   <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
     {
       portfolios.map((item) => (

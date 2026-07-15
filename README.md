@@ -1,4 +1,34 @@
-# Astro Starter Kit: Minimal
+# 🌄 Through Indonesia
+
+A photography website made for archiving and displaying the wonders of Indonesia.
+
+## Main features include:
+
+- Portfolio section divided by location and subject.
+- Workshop section for displaying all the currently available expeditions.
+- Workshop registration for all the interested participants.
+- Journals and testimonials section to display the people that have participated in the adventures.
+
+## Tech Stack
+
+| Role           | Tech                 |
+| :------------- | :------------------- |
+| Frontend       | Astro                |
+| Styling        | Tailwind             |
+| Images         | Cloudflare R2        |
+| Hosting        | Cloudflare Workers   |
+| Database       | Supabase             |
+| Mail Sender    | Resend               |
+| Bot Protection | Cloudflare Turnstile |
+| Lightbox       | Photoswipe           |
+
+## Links
+
+[The Website Itself](https://throughindonesia.com/)
+
+[Instagram Page](https://www.instagram.com/throughindonesia/)
+
+# Astro Starter
 
 ```sh
 npm create astro@latest -- --template minimal

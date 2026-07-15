@@ -26,10 +26,10 @@ const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Testimonials" }];
   <Container>
     <h1 class="text-4xl md:text-9xl">TESTIMONIALS</h1>
     <hr class="mt-10 mb-6 border-secondary" />
-    <div class="my-6 columns-1 md:columns-2 gap-1 space-y-1">
+    <div class="my-6 grid grid-cols-1 md:grid-cols-2 gap-1">
       {
         renderedTestimonials.map(({ entry, Content }) => (
-          <div class="break-inside-avoid bg-secondary/15 hover:bg-accent/20 p-3 text-justify ">
+          <div class="break-inside-avoid bg-secondary/15 hover:bg-accent/20 p-3 text-justify h-full justify-between">
             <Content />
 
             <div class="mt-4 text-center">{entry.data.name}</div>
@@ -39,7 +39,7 @@ const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Testimonials" }];
       }
     </div>
     <Gallery
-      masonry={true}
+      masonry={false}
       images={createRandomizedGalleryImages()}
       client:visible
     />
